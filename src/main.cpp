@@ -296,26 +296,30 @@ void dataLog(){
 
 void displaylcd(){
     LCD.clear();
-    LCD.setCursor(0,0);                                                                               /* Set cursor to first colum 0 and second row 1  */
+    LCD.setCursor(0,0);                           // Set cursor to first colum 0 and second row 1
     LCD.print("I=");
-    LCD.print(FinalRMSCurrent,decimalPrecision);                                                      /* display current value in LCD in first row  */
+    LCD.print(FinalRMSCurrent,decimalPrecision);  // display current value in LCD in first row  
     LCD.setCursor(7,0);      
     LCD.print("A");
 
     LCD.setCursor(0,1);
     LCD.print("V=");
-    LCD.print(Van,decimalPrecision);                                                      /* display current value in LCD in first row  */
+    LCD.print(Van,decimalPrecision);    
     LCD.setCursor(7,1); 
     LCD.print("V");
+    if (Van<2.18){
+      LCD.setCursor(1,1);
+      LCD.print("<=LIMIT!!");
+    }
 
     LCD.setCursor(0,2);
     LCD.print("P=");
-    LCD.print(FinalRMSCurrent*Van);                                                      /* display current value in LCD in first row  */
+    LCD.print(FinalRMSCurrent*Van);                                                     
     LCD.print("Watt");
 
     LCD.setCursor(0,3);
     LCD.print("t=");
-    LCD.print(currentMicrosLCD/1000000);                                                      /* display current value in LCD in first row  */
+    LCD.print(currentMicrosLCD/1000000);  //divided by 1000000 to convert micros to s                                                   
 //  LCD.setCursor(7,3);     
     LCD.print(" Sec");
 
@@ -462,7 +466,7 @@ startMicrosLCD = micros();                        /* Start counting time for LCD
     LCD.print("ssid: ");
     LCD.print(ssid);
     LCD.setCursor(0,2);
-    LCD.print("password:  ");
+    LCD.print("pass: ");
     LCD.print(password);
 
     LCD.setCursor(0,0);                    // Set cursor to first colum 0 and second row 1  
