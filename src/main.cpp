@@ -11,8 +11,8 @@
 #include <WiFi.h>
 #include <HTTPClient.h>
 
-const char* ssid = "DESKTOP-LU47COE 9850";
-const char* password = "Wk<24126";
+const char* ssid = "datalogger";
+const char* password = "admin1234";
 bool wifiStatus = false; // for checking wifi 
 
 String serverName = "http://akademik.che.itb.ac.id/ptp/api/simpan_data.php";
@@ -459,7 +459,11 @@ startMicrosLCD = micros();                        /* Start counting time for LCD
     }
 
     LCD.setCursor(0,1);
+    LCD.print("ssid: ");
     LCD.print(ssid);
+    LCD.setCursor(0,2);
+    LCD.print("password:  ");
+    LCD.print(password);
 
     LCD.setCursor(0,0);                    // Set cursor to first colum 0 and second row 1  
     LCD.print("Connecting.");
