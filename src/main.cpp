@@ -60,8 +60,11 @@ float nilai4;
 
 /* 1.a- Voltage Measurement */
 float Van = 0; 
+int VanPin = 39;
+float VanSlope = 0.0189;
+float VanIntercept = 2.85;
         
-        /* 2 - LCD Display  */
+/* 2 - LCD Display  */
 #include <LiquidCrystal_I2C.h>
 
 LiquidCrystal_I2C LCD(0x27,20,4);  // set the LCD address to 0x27 for a 16 chars and 2 line display
@@ -304,10 +307,11 @@ void displaylcd(){
 
     LCD.setCursor(0,1);
     LCD.print("V=");
-    LCD.print(Van,decimalPrecision);    
+    LCD.print(Van,decimalPrecision);
+    Serial.print(Van*2, decimalPrecision);
     LCD.setCursor(7,1); 
     LCD.print("V");
-    if (Van<2.18){
+    if (Van<VanIntercept+0.01){ //min value to display
       LCD.setCursor(1,1);
       LCD.print("<=LIMIT!!");
     }
@@ -384,6 +388,8 @@ Serial.begin(9600);                               /* to display readings in Seri
   while (!Serial) {
     delay(10);
   }
+
+pinMode(VanPin,INPUT);
 
 /* 2 - LCD Display  */
 LCD.init(21,22);                      // initialize the lcd 
@@ -523,7 +529,7 @@ if(currentSampleCount == 4000)                                                  
   }
 
 /* 1.a- Voltage Measurement */
-Van = analogRead(4)*0.0187 + 2.17;
+Van = analogRead(VanPin)*VanSlope + VanIntercept;
 
 /* 2 - LCD Display  */
 
